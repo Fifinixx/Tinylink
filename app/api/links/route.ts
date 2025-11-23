@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import validator from "validator";
 import { NextResponse } from "next/server";
 import { customAlphabet } from "nanoid";
@@ -125,7 +126,7 @@ export async function POST(req: Request) {
   } catch (e) {
     console.error(e);
     if (
-      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e instanceof PrismaClientKnownRequestError &&
       e.code === "P2002"
     ) {
       return NextResponse.json(

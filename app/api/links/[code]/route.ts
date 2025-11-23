@@ -1,10 +1,11 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+
 
 import { NextResponse } from "next/server";
 
   
-  export async function DELETE(req: Request, {params}:{params:{code:string}}) {
+  export async function DELETE(req: Request, {params}:{ params: Promise<{ code: string }>}) {
     try {
       const { code } = await params;
       if (!code) {
@@ -22,7 +23,7 @@ import { NextResponse } from "next/server";
       );
     } catch (e) {
         console.error(e)
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2025") {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
           return NextResponse.json(
             { message: "Provided ID cannot be found" },
             { status: 404 }
@@ -33,7 +34,7 @@ import { NextResponse } from "next/server";
   }
 
 
-  export async function GET(req: Request, {params}:{params:{code:string}}) {
+  export async function GET(req: Request, {params}:{ params: Promise<{ code: string }>}) {
     const { code } = await params;
     try {
       const stats = await prisma.link.findUnique({
@@ -45,7 +46,7 @@ import { NextResponse } from "next/server";
       return NextResponse.json({ code: stats });
     } catch (e) {
       console.error(e);
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2025") {
+      if (e instanceof PrismaClientKnownRequestError && e.code === "P2025") {
         return NextResponse.json(
           { message: "Provided ID cannot be found" },
           { status: 404 }
