@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Link" ALTER COLUMN "shortUrl" DROP NOT NULL,
+ALTER COLUMN "clickCount" DROP NOT NULL;
