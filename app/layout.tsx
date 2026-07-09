@@ -41,7 +41,7 @@ export default function RootLayout({
         {children}
         <Toaster />
         </ThemeProvider>
-        <footer className="text-sm p-2 bg-neutral-800 text-neutral-300 w-full text-center fixed bottom-0">Debmalya Maity Candidate ID: Naukri1125</footer>
+        <footer className="text-sm p-2 bg-neutral-800 text-neutral-300 w-full text-center fixed bottom-0">Debmalya Maity</footer>
       </body>
     </html>
   );
